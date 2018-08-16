@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+  <simple-camera></simple-camera>
+  <button id="btnBlobPhoto">Blob</button>
+  <button id="btnBase64Photo">Base 64</button>
+  <script src="camera.js"></script>
+  <script>
+  (async function() {
+    const camera = document.querySelector('simple-camera');
+    const btnPhoto = document.getElementById('btnPhoto');
+    await camera.open({
+      video: {
+        facingMode: 'user'
+      }
+    });
+    btnBlobPhoto.addEventListener('click', async (event) => {
+      const photo = await camera.takeBlobPhoto();
+      console.log(photo);
+    });
+    btnBase64Photo.addEventListener('click', async (event) => {
+      const photo = camera.takeBase64Photo({ type: 'jpeg', quality: 0.8 });
+      console.log(photo);
+    });
+  }());
+  </script>
+  </body>
+</html>
